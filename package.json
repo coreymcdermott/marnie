@@ -1,0 +1,30 @@
+{
+  "name": "marnie",
+  "version": "0.0.1",
+  "description": "Transforms a Bloomberg calendar export into a readable agenda.",
+  "main": "",
+  "scripts": {
+    "build": "webpack --debug"
+  },
+  "author": "Corey McDermott",
+  "license": "MIT",
+  "dependencies": {
+    "moment": "^2.14.1",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-form": "^5.3.1",
+    "redux-logger": "^2.6.1",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.1.0",
+    "uuid": "^2.0.2",
+    "xlsx": "^0.8.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "webpack": "^1.13.1"
+  }
+}
