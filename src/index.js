@@ -1,12 +1,12 @@
-import React                            from 'react'
-import { render }                       from 'react-dom'
-import { Provider }                     from 'react-redux'
-import { applyMiddleware, createStore } from 'redux'
-import thunk                            from 'redux-thunk'
-import promise                          from 'redux-promise'
-import createLogger                     from 'redux-logger'
-import rootReducer                      from './reducers'
-import CalendarContainer                from './containers/CalendarContainer.jsx'
+import React                            from 'react';
+import { render }                       from 'react-dom';
+import { Provider }                     from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk                            from 'redux-thunk';
+import promise                          from 'redux-promise';
+import createLogger                     from 'redux-logger';
+import rootReducer                      from './reducers';
+import CalendarContainer                from './containers/CalendarContainer.jsx';
 
 let logger = createLogger();
 let store  = createStore(
@@ -19,4 +19,4 @@ render(
     <CalendarContainer />
   </Provider>,
   document.getElementById('root')
-)
+);
