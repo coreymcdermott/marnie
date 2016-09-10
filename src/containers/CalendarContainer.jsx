@@ -5,7 +5,7 @@ import * as actionCreators from '../actions';
 import { MARKETS } from '../actions';
 import ImportEventsFileInput from '../components/ImportEventsFileInput';
 import AddEventModal from '../components/AddEventModal.jsx';
-import EventsTable from '../components/EventsTable';
+import EventsTable from '../components/EventsTable.jsx';
 import MarketFilter from '../components/MarketFilter';
 
 const propTypes = {
