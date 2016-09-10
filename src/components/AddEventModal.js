@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import AddEventForm from '../components/AddEventForm'
+import AddEventForm from '../components/AddEventForm.jsx'
 
 class AddEventModal extends Component {
   render() {
