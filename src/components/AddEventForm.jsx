@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 const propTypes = {
-  handleAdd: PropTypes.function.isRequire,
+  handleAdd: PropTypes.function.isRequired,
 };
 
 class AddEventForm extends Component {

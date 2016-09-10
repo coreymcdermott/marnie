@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions';
 import { MARKETS } from '../actions';
 import ImportEventsFileInput from '../components/ImportEventsFileInput';
-import AddEventModal from '../components/AddEventModal';
+import AddEventModal from '../components/AddEventModal.jsx';
 import EventsTable from '../components/EventsTable';
 import MarketFilter from '../components/MarketFilter';
 
