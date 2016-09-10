@@ -6,7 +6,7 @@ import thunk                            from 'redux-thunk'
 import promise                          from 'redux-promise'
 import createLogger                     from 'redux-logger'
 import rootReducer                      from './reducers'
-import CalendarContainer                from './containers/CalendarContainer'
+import CalendarContainer                from './containers/CalendarContainer.jsx'
 
 let logger = createLogger();
 let store  = createStore(
