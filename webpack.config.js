@@ -6,20 +6,20 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.js$/,
+      test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       loader: 'babel',
       query: {
-        presets: ['es2015', 'react']
-      }
-    }]
+        presets: ['es2015', 'react'],
+      },
+    }],
   },
   node: {
-        fs: 'empty'
+    fs: 'empty',
   },
   externals: [
-      {
-          './cptable': 'var cptable'
-      }
-  ]
-}
+    {
+      './cptable': 'var cptable',
+    },
+  ],
+};
