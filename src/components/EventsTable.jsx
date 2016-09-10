@@ -3,8 +3,8 @@ import moment from 'moment';
 
 const propTypes = {
   events: PropTypes.array.isRequired,
-  handleEdit: PropTypes.function.isRequired,
-  handleDelete: PropTypes.function.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 class EventsTable extends Component {
