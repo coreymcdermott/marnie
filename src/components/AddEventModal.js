@@ -1,5 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import AddEventForm from '../components/AddEventForm.jsx'
+import React, { Component, PropTypes } from 'react';
+import AddEventForm from '../components/AddEventForm.jsx';
+
+const propTypes = {
+  handleAdd: PropTypes.function.isRequire,
+};
 
 class AddEventModal extends Component {
   render() {
@@ -17,13 +21,15 @@ class AddEventModal extends Component {
               </h4>
             </div>
             <div className="modal-body">
-              <AddEventForm handleAdd={handleAdd}/>
+              <AddEventForm handleAdd={handleAdd} />
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default AddEventModal
+AddEventModal.propTypes = propTypes;
+
+export default AddEventModal;
