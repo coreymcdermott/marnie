@@ -6,7 +6,7 @@ import { MARKETS } from '../actions';
 import ImportEventsFileInput from '../components/ImportEventsFileInput.jsx';
 import AddEventModal from '../components/AddEventModal.jsx';
 import EventsTable from '../components/EventsTable.jsx';
-import MarketFilter from '../components/MarketFilter';
+import MarketFilter from '../components/MarketFilter.jsx';
 
 const propTypes = {
   events: PropTypes.array.isRequired,
