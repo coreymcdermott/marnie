@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions';
 import { MARKETS } from '../actions';
-import ImportEventsFileInput from '../components/ImportEventsFileInput';
+import ImportEventsFileInput from '../components/ImportEventsFileInput.jsx';
 import AddEventModal from '../components/AddEventModal.jsx';
 import EventsTable from '../components/EventsTable.jsx';
 import MarketFilter from '../components/MarketFilter';
