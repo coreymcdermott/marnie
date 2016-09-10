@@ -1,17 +1,16 @@
-import XLSX   from 'xlsx'
-import uuid   from 'uuid'
-import moment from 'moment'
+import XLSX from 'xlsx';
+import uuid from 'uuid';
 
-export const ADD_EVENT         = 'ADD_EVENT'
-export const DELETE_EVENT      = 'DELETE_EVENT'
-export const IMPORT_EVENTS     = 'IMPORT_EVENTS'
-export const SET_MARKET_FILTER = 'SET_MARKET_FILTER'
+export const ADD_EVENT         = 'ADD_EVENT';
+export const DELETE_EVENT      = 'DELETE_EVENT';
+export const IMPORT_EVENTS     = 'IMPORT_EVENTS';
+export const SET_MARKET_FILTER = 'SET_MARKET_FILTER';
 
 export const MARKETS = {
   G3_PLUS_C: [
     'United States',
     'United Kingdom',
-    'China'
+    'China',
   ],
   HIGH_INCOME_EAST_ASIA: [
     'Australia',
@@ -92,8 +91,8 @@ export const MARKETS = {
     'Tuvalu',
     'Vanuatu',
     'Vietnam',
-  ]
-}
+  ],
+};
 
 export function addEvent(
   date,
@@ -112,19 +111,19 @@ export function addEvent(
     period:    period,
     forecast:  forecast,
     actual:    actual,
-    time:      time
-  }
+    time:      time,
+  };
 }
 
 export function deleteEvent(uuid) {
   return {
     type: DELETE_EVENT,
-    uuid
-  }
+    uuid,
+  };
 }
 
 export function importEvents(data) {
-  let workbook  = XLSX.read(data, {type: 'binary'});
+  const workbook  = XLSX.read(data, { type: 'binary' });
   let worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
   let events = [];
 
@@ -132,27 +131,27 @@ export function importEvents(data) {
   worksheet = worksheet.filter(event => !event.Date.startsWith('Download time'));
 
   worksheet.map(event => {
-      events.push({
-        uuid:      uuid.v4(),
-        date:      event["Date"],
-        country:   event["Country"],
-        indicator: event["Event"],
-        period:    event["Period"],
-        forecast:  event["Surv(M)"] == '--' ? '' : event["Surv(M)"],
-        actual:    event["Actual"]  == '--' ? '' : event["Actual"],
-        time:      event["Time"]
-      });
+    events.push({
+      uuid:      uuid.v4(),
+      date:      event['Date'],
+      country:   event['Country'],
+      indicator: event['Event'],
+      period:    event['Period'],
+      forecast:  event['Surv(M)'] === '--' ? '' : event['Surv(M)'],
+      actual:    event['Actual']  === '--' ? '' : event['Actual'],
+      time:      event['Time'],
+    });
   });
 
   return {
     type: IMPORT_EVENTS,
-    events: events
-  }
+    events: events,
+  };
 }
 
 export function setMarketFilter(filter) {
   return {
     type: SET_MARKET_FILTER,
-    filter
-  }
+    filter,
+  };
 }
