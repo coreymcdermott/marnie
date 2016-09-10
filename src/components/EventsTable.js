@@ -1,16 +1,21 @@
-import React, { Component, PropTypes } from 'react'
-import moment from 'moment'
+import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
 
+const propTypes = {
+  events: PropTypes.array.isRequired,
+  handleEdit: PropTypes.function.isRequired,
+  handleDelete: PropTypes.function.isRequired,
+};
 
 class EventsTable extends Component {
   render() {
-    let dates = [...new Set(this.props.events.map(event => event.date))];
+    const dates = [...new Set(this.props.events.map(event => event.date))];
 
-    let rows = dates.map(date => {
-      let events = this.props.events.filter(event => event.date === date);
+    const rows = dates.map(date => {
+      const events = this.props.events.filter(event => event.date === date);
 
       return events.map((event, index) => {
-        let first = index === 0 ? (<td rowSpan={events.length} className='td-hack'>{ moment(event.date, "DD-MM-YYYY").format("dddd, Do MMMM") }</td>) : false;
+        const first = index === 0 ? (<td rowSpan={events.length} className="td-hack">{ moment(event.date, 'DD-MM-YYYY').format('dddd, Do MMMM') }</td>) : false;
 
         return (
           <tr key={event.UUID}>
@@ -26,7 +31,7 @@ class EventsTable extends Component {
               <button className="btn btn-default" onClick={() => this.props.handleDelete(event.uuid)}>Delete</button>
             </td>
           </tr>
-        )
+        );
       });
     });
 
@@ -50,8 +55,10 @@ class EventsTable extends Component {
           </tbody>
         </table>
       </div>
-    )
+    );
   }
 }
 
-export default EventsTable
+EventsTable.propTypes = propTypes;
+
+export default EventsTable;
