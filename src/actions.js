@@ -5,6 +5,7 @@ export const ADD_EVENT         = 'ADD_EVENT';
 export const DELETE_EVENT      = 'DELETE_EVENT';
 export const IMPORT_EVENTS     = 'IMPORT_EVENTS';
 export const SET_MARKET_FILTER = 'SET_MARKET_FILTER';
+export const SET_PERIOD_FILTER = 'SET_PERIOD_FILTER';
 
 export const MARKETS = {
   G3_PLUS_C: [
@@ -152,6 +153,13 @@ export function importEvents(data) {
 export function setMarketFilter(filter) {
   return {
     type: SET_MARKET_FILTER,
+    filter,
+  };
+}
+
+export function setPeriodFilter(filter) {
+  return {
+    type: SET_PERIOD_FILTER,
     filter,
   };
 }

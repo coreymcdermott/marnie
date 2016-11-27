@@ -1,16 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 import * as actionCreators from '../actions';
 import { MARKETS } from '../actions';
 import ImportEventsFileInput from '../components/ImportEventsFileInput.jsx';
 import AddEventModal from '../components/AddEventModal.jsx';
 import EventsTable from '../components/EventsTable.jsx';
 import MarketFilter from '../components/MarketFilter.jsx';
+import PeriodFilter from '../components/PeriodFilter.jsx';
+
 
 const propTypes = {
   events: PropTypes.array.isRequired,
   market: PropTypes.string.isRequired,
+  period: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
@@ -22,19 +26,45 @@ class CalendarContainer extends Component {
   }
 
   getFilteredEvents() {
-    const { events, market } = this.props;
+    const { events, market, period } = this.props;
+
+    let filteredEvents = events;
+    let start = null;
+    let end = null;
+
     switch (market) {
     case 'G3_PLUS_C':
-      return events.filter(event => MARKETS.G3_PLUS_C.indexOf(event.country) > -1);
+      filteredEvents = filteredEvents.filter(event => MARKETS.G3_PLUS_C.indexOf(event.country) > -1);
+      break;
     case 'HIGH_INCOME_EAST_ASIA':
-      return events.filter(event => MARKETS.HIGH_INCOME_EAST_ASIA.indexOf(event.country) > -1);
+      filteredEvents = filteredEvents.filter(event => MARKETS.HIGH_INCOME_EAST_ASIA.indexOf(event.country) > -1);
+      break;
     case 'MIDDLE_INCOME_EAST_ASIA':
-      return events.filter(event => MARKETS.MIDDLE_INCOME_EAST_ASIA.indexOf(event.country) > -1);
+      filteredEvents = filteredEvents.filter(event => MARKETS.MIDDLE_INCOME_EAST_ASIA.indexOf(event.country) > -1);
+      break;
     case 'ALL_EAST_ASIA':
-      return events.filter(event => MARKETS.ALL_EAST_ASIA.indexOf(event.country) > -1);
+      filteredEvents = filteredEvents.filter(event => MARKETS.ALL_EAST_ASIA.indexOf(event.country) > -1);
+      break;
     default:
-      return events;
+      break;
     }
+
+    switch (period) {
+    case 'THIS_FORTNIGHT':
+      start = moment().day(1);
+      end = moment().day(14);
+      filteredEvents = filteredEvents.filter(event => moment(event.date).isBetween(start, end, 'day', '[]'));
+      break;
+    case 'NEXT_FORTNIGHT':
+      start = moment().day(7);
+      end = moment().day(21);
+      filteredEvents = filteredEvents.filter(event => moment(event.date).isBetween(start, end, 'day', '[]'));
+      break;
+    default:
+      break;
+    }
+
+    return filteredEvents;
   }
 
   render() {
@@ -49,6 +79,7 @@ class CalendarContainer extends Component {
               Add Event
             </button>
             <MarketFilter setMarketFilter={actions.setMarketFilter} />
+            <PeriodFilter setPeriodFilter={actions.setPeriodFilter} />
           </div>
           <AddEventModal classID="#addEventModal" handleAdd={actions.addEvent} />
         </div>
@@ -64,9 +95,9 @@ class CalendarContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { events, market } = state;
+  const { events, market, period } = state;
   return {
-    events, market,
+    events, market, period,
   };
 }
 

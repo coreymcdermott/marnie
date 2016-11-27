@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import uuid from 'uuid';
-import { ADD_EVENT, DELETE_EVENT, IMPORT_EVENTS, SET_MARKET_FILTER } from './actions';
+import { ADD_EVENT, DELETE_EVENT, IMPORT_EVENTS, SET_MARKET_FILTER, SET_PERIOD_FILTER } from './actions';
 
 function events(state = [], action) {
   switch (action.type) {
@@ -36,9 +36,19 @@ function market(state = 'ALL', action) {
   }
 }
 
+function period(state = 'ALL', action) {
+  switch (action.type) {
+  case SET_PERIOD_FILTER:
+    return action.filter;
+  default:
+    return state;
+  }
+}
+
 const rootReducer = combineReducers({
   events,
   market,
+  period,
 });
 
 export default rootReducer;

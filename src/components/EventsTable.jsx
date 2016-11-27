@@ -15,7 +15,7 @@ class EventsTable extends Component {
       const events = this.props.events.filter(event => event.date === date);
 
       return events.map((event, index) => {
-        const first = index === 0 ? (<td rowSpan={events.length} className="td-hack">{ moment(event.date, 'DD-MM-YYYY').format('dddd, Do MMMM') }</td>) : false;
+        const first = index === 0 ? (<td rowSpan={events.length} className="td-hack">{ moment(event.date).format('dddd, Do MMMM') }</td>) : false;
 
         return (
           <tr key={event.UUID}>
