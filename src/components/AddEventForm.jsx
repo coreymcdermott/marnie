@@ -22,7 +22,7 @@ class AddEventForm extends Component {
       document.getElementById('inputActual').value,
       document.getElementById('inputTime').value
     );
-    $('#addEventModal').modal('hide');
+    document.getElementById('addEventModal').modal('hide');
   }
 
   render() {
