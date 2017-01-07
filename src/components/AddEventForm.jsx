@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import datepicker from 'bootstrap-datepicker';
+import DatePicker from 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
 
 const propTypes = {
   handleAdd: PropTypes.func.isRequired,
@@ -31,7 +33,12 @@ class AddEventForm extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label">Date</label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputDate" placeholder="" />
+            <div className="input-group date" data-provide="datepicker">
+              <input type="text" className="form-control" id="inputDate" placeholder="" />
+                <div className="input-group-addon">
+                  <span className="glyphicon glyphicon-th" />
+                </div>
+            </div>
           </div>
         </div>
         <div className="form-group">
