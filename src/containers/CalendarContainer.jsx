@@ -72,10 +72,10 @@ class CalendarContainer extends Component {
     return (
       <div>
         <div id="eventHeader">
-          <h1>Marnie</h1>
+          <h1 className="hidden-print">Marnie</h1>
           <div className="form-inline">
             <ImportEventsFileInput handleImport={actions.importEvents} />
-            <button className="btn btn-default" data-toggle="modal" data-target="#addEventModal">
+            <button className="btn btn-default hidden-print" data-toggle="modal" data-target="#addEventModal">
               Add Event
             </button>
             <MarketFilter setMarketFilter={actions.setMarketFilter} />

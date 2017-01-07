@@ -64001,7 +64001,7 @@
 	          { id: 'eventHeader' },
 	          _react2.default.createElement(
 	            'h1',
-	            null,
+	            { className: 'hidden-print' },
 	            'Marnie'
 	          ),
 	          _react2.default.createElement(
@@ -64010,7 +64010,7 @@
 	            _react2.default.createElement(_ImportEventsFileInput2.default, { handleImport: actions.importEvents }),
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'btn btn-default', 'data-toggle': 'modal', 'data-target': '#addEventModal' },
+	              { className: 'btn btn-default hidden-print', 'data-toggle': 'modal', 'data-target': '#addEventModal' },
 	              'Add Event'
 	            ),
 	            _react2.default.createElement(_MarketFilter2.default, { setMarketFilter: actions.setMarketFilter }),
@@ -78150,7 +78150,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "label",
-	        { className: "btn btn-default btn-file m-right" },
+	        { className: "btn btn-default btn-file m-right hidden-print" },
 	        "Import Events ",
 	        _react2.default.createElement("input", { type: "file", onChange: this.onChange, className: "hidden-input" })
 	      );
@@ -78530,7 +78530,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'td',
-	              null,
+	              { className: 'hidden-print' },
 	              _react2.default.createElement(
 	                'button',
 	                { className: 'btn btn-default m-right', onClick: function onClick() {
@@ -78599,7 +78599,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                null,
+	                { className: 'hidden-print' },
 	                'Actions'
 	              )
 	            )
@@ -78665,7 +78665,7 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "dropdown pull-right" },
+	        { className: "dropdown pull-right hidden-print" },
 	        _react2.default.createElement(
 	          "button",
 	          { className: "btn btn-default dropdown-toggle", type: "button", id: "dropdownMenu", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true" },
@@ -78786,7 +78786,7 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "dropdown pull-right m-right" },
+	        { className: "dropdown pull-right m-right hidden-print" },
 	        _react2.default.createElement(
 	          "button",
 	          { className: "btn btn-default dropdown-toggle", type: "button", id: "dropdownMenu", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true" },

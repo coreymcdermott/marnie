@@ -8,7 +8,7 @@ class PeriodFilter extends Component {
   render() {
     const { setPeriodFilter } = this.props;
     return (
-      <div className="dropdown pull-right m-right">
+      <div className="dropdown pull-right m-right hidden-print">
         <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Period Filter&nbsp;
           <span className="caret"></span>

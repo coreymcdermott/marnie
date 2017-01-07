@@ -8,7 +8,7 @@ class MarketFilter extends Component {
   render() {
     const { setMarketFilter } = this.props;
     return (
-      <div className="dropdown pull-right">
+      <div className="dropdown pull-right hidden-print">
         <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Market Filter&nbsp;
           <span className="caret"></span>

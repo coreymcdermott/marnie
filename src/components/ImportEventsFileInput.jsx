@@ -22,7 +22,7 @@ class ImportEventsFileInput extends Component {
 
   render() {
     return (
-      <label className="btn btn-default btn-file m-right">
+      <label className="btn btn-default btn-file m-right hidden-print">
         Import Events <input type="file" onChange={this.onChange} className="hidden-input" />
       </label>
     );

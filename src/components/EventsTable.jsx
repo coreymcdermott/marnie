@@ -26,7 +26,7 @@ class EventsTable extends Component {
             <td>{event.forecast}</td>
             <td>{event.actual}</td>
             <td>{event.time}</td>
-            <td>
+            <td className="hidden-print">
               <button className="btn btn-default m-right" onClick={() => this.props.handleEdit(event.uuid)}>Edit</button>
               <button className="btn btn-default" onClick={() => this.props.handleDelete(event.uuid)}>Delete</button>
             </td>
@@ -47,7 +47,7 @@ class EventsTable extends Component {
               <th>Market Forecast</th>
               <th>Actual</th>
               <th>Time</th>
-              <th>Actions</th>
+              <th className="hidden-print">Actions</th>
             </tr>
           </thead>
           <tbody>
