@@ -23868,10 +23868,29 @@
 	  }
 	}
 
+	function addEventModal() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { visible: false };
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'OPEN_ADD_EVENT_MODAL':
+	      return {
+	        visible: true
+	      };
+	    case 'CLOSE_ADD_EVENT_MODAL':
+	      return {
+	        visible: false
+	      };
+	    default:
+	      return state;
+	  }
+	}
+
 	var rootReducer = (0, _redux.combineReducers)({
 	  events: events,
 	  market: market,
-	  period: period
+	  period: period,
+	  addEventModal: addEventModal
 	});
 
 	exports.default = rootReducer;
@@ -24112,12 +24131,14 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.MARKETS = exports.SET_PERIOD_FILTER = exports.SET_MARKET_FILTER = exports.IMPORT_EVENTS = exports.DELETE_EVENT = exports.ADD_EVENT = undefined;
+	exports.MARKETS = exports.CLOSE_ADD_EVENT_MODAL = exports.OPEN_ADD_EVENT_MODAL = exports.SET_PERIOD_FILTER = exports.SET_MARKET_FILTER = exports.IMPORT_EVENTS = exports.DELETE_EVENT = exports.ADD_EVENT = undefined;
 	exports.addEvent = addEvent;
 	exports.deleteEvent = deleteEvent;
 	exports.importEvents = importEvents;
 	exports.setMarketFilter = setMarketFilter;
 	exports.setPeriodFilter = setPeriodFilter;
+	exports.openAddEventModal = openAddEventModal;
+	exports.closeAddEventModal = closeAddEventModal;
 
 	var _xlsx = __webpack_require__(207);
 
@@ -24134,6 +24155,8 @@
 	var IMPORT_EVENTS = exports.IMPORT_EVENTS = 'IMPORT_EVENTS';
 	var SET_MARKET_FILTER = exports.SET_MARKET_FILTER = 'SET_MARKET_FILTER';
 	var SET_PERIOD_FILTER = exports.SET_PERIOD_FILTER = 'SET_PERIOD_FILTER';
+	var OPEN_ADD_EVENT_MODAL = exports.OPEN_ADD_EVENT_MODAL = 'OPEN_ADD_EVENT_MODAL';
+	var CLOSE_ADD_EVENT_MODAL = exports.CLOSE_ADD_EVENT_MODAL = 'CLOSE_ADD_EVENT_MODAL';
 
 	var MARKETS = exports.MARKETS = {
 	  G3_PLUS_C: ['United States', 'United Kingdom', 'China'],
@@ -24202,6 +24225,18 @@
 	  return {
 	    type: SET_PERIOD_FILTER,
 	    filter: filter
+	  };
+	}
+
+	function openAddEventModal() {
+	  return {
+	    type: OPEN_ADD_EVENT_MODAL
+	  };
+	}
+
+	function closeAddEventModal() {
+	  return {
+	    type: CLOSE_ADD_EVENT_MODAL
 	  };
 	}
 
@@ -63914,7 +63949,8 @@
 	  events: _react.PropTypes.array.isRequired,
 	  market: _react.PropTypes.string.isRequired,
 	  period: _react.PropTypes.string.isRequired,
-	  actions: _react.PropTypes.object.isRequired
+	  actions: _react.PropTypes.object.isRequired,
+	  addEventModal: _react.PropTypes.object.isRequired
 	};
 
 	var CalendarContainer = function (_Component) {
@@ -63991,7 +64027,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var actions = this.props.actions;
+	      var _props2 = this.props,
+	          actions = _props2.actions,
+	          addEventModal = _props2.addEventModal;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -64010,13 +64048,17 @@
 	            _react2.default.createElement(_ImportEventsFileInput2.default, { handleImport: actions.importEvents }),
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'btn btn-default hidden-print', 'data-toggle': 'modal', 'data-target': '#addEventModal' },
+	              { className: 'btn btn-default hidden-print', onClick: actions.openAddEventModal },
 	              'Add Event'
 	            ),
 	            _react2.default.createElement(_MarketFilter2.default, { setMarketFilter: actions.setMarketFilter }),
 	            _react2.default.createElement(_PeriodFilter2.default, { setPeriodFilter: actions.setPeriodFilter })
 	          ),
-	          _react2.default.createElement(_AddEventModal2.default, { classID: '#addEventModal', handleAdd: actions.addEvent })
+	          _react2.default.createElement(_AddEventModal2.default, {
+	            handleAdd: actions.addEvent,
+	            handleClose: actions.closeAddEventModal,
+	            visible: addEventModal.visible
+	          })
 	        ),
 	        this.getFilteredEvents().length === 0 && _react2.default.createElement(_EventsTable2.default, { events: this.getFilteredEvents(), handleDelete: actions.deleteEvent }),
 	        this.getFilteredEvents().length > 0 && _react2.default.createElement(_EventsTable2.default, { events: this.getFilteredEvents(), handleDelete: actions.deleteEvent })
@@ -64030,10 +64072,11 @@
 	function mapStateToProps(state) {
 	  var events = state.events,
 	      market = state.market,
-	      period = state.period;
+	      period = state.period,
+	      addEventModal = state.addEventModal;
 
 	  return {
-	    events: events, market: market, period: period
+	    events: events, market: market, period: period, addEventModal: addEventModal
 	  };
 	}
 
@@ -78193,7 +78236,9 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var propTypes = {
-	  handleAdd: _react.PropTypes.func.isRequired
+	  visible: _react.PropTypes.bool.isRequired,
+	  handleAdd: _react.PropTypes.func.isRequired,
+	  handleClose: _react.PropTypes.func.isRequired
 	};
 
 	var AddEventModal = function (_Component) {
@@ -78208,11 +78253,14 @@
 	  _createClass(AddEventModal, [{
 	    key: 'render',
 	    value: function render() {
-	      var handleAdd = this.props.handleAdd;
+	      var _props = this.props,
+	          visible = _props.visible,
+	          handleAdd = _props.handleAdd,
+	          handleClose = _props.handleClose;
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'modal fade', id: 'addEventModal', role: 'dialog' },
+	        { className: visible ? 'modal show' : 'modal fade', id: 'addEventModal', role: 'dialog' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'modal-dialog', role: 'document' },
@@ -78224,7 +78272,7 @@
 	              { className: 'modal-header' },
 	              _react2.default.createElement(
 	                'button',
-	                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+	                { type: 'button', className: 'close', 'aria-label': 'Close', onClick: handleClose },
 	                _react2.default.createElement(
 	                  'span',
 	                  { 'aria-hidden': 'true' },
@@ -78240,7 +78288,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'modal-body' },
-	              _react2.default.createElement(_AddEventForm2.default, { handleAdd: handleAdd })
+	              _react2.default.createElement(_AddEventForm2.default, { handleAdd: handleAdd, handleClose: handleClose })
 	            )
 	          )
 	        )
@@ -78288,7 +78336,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var propTypes = {
-	  handleAdd: _react.PropTypes.func.isRequired
+	  handleAdd: _react.PropTypes.func.isRequired,
+	  handleClose: _react.PropTypes.func.isRequired
 	};
 
 	var AddEventForm = function (_Component) {
@@ -78307,10 +78356,12 @@
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
 	      e.preventDefault();
-	      var handleAdd = this.props.handleAdd;
+	      var _props = this.props,
+	          handleAdd = _props.handleAdd,
+	          handleClose = _props.handleClose;
 
 	      handleAdd(document.getElementById('inputDate').value, document.getElementById('inputCountry').value, document.getElementById('inputIndicator').value, document.getElementById('inputPeriod').value, document.getElementById('inputForecast').value, document.getElementById('inputActual').value, document.getElementById('inputTime').value);
-	      document.getElementById('addEventModal').modal('hide');
+	      handleClose();
 	    }
 	  }, {
 	    key: 'render',
@@ -78323,7 +78374,7 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputDate' },
 	            'Date'
 	          ),
 	          _react2.default.createElement(
@@ -78332,7 +78383,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'input-group date', 'data-provide': 'datepicker' },
-	              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputDate', placeholder: '' }),
+	              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputDate' }),
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'input-group-addon' },
@@ -78346,13 +78397,13 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputCountry' },
 	            'Country'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10' },
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputCountry', placeholder: '' })
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputCountry' })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -78360,13 +78411,13 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputIndicator' },
 	            'Indicator'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10' },
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputIndicator', placeholder: '' })
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputIndicator' })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -78374,13 +78425,13 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputPeriod' },
 	            'Period'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10' },
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputPeriod', placeholder: '' })
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputPeriod' })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -78388,13 +78439,13 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputForecast' },
 	            'Forcast'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10' },
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputForecast', placeholder: '' })
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputForecast' })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -78402,13 +78453,13 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputActual' },
 	            'Actual'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10' },
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputActual', placeholder: '' })
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputActual' })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -78416,13 +78467,13 @@
 	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
-	            { className: 'col-sm-2 control-label' },
+	            { className: 'col-sm-2 control-label', htmlFor: 'inputTime' },
 	            'Time'
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10' },
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputTime', placeholder: '' })
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputTime' })
 	          )
 	        ),
 	        _react2.default.createElement(

@@ -1,6 +1,14 @@
 import { combineReducers } from 'redux';
 import uuid from 'uuid';
-import { ADD_EVENT, DELETE_EVENT, IMPORT_EVENTS, SET_MARKET_FILTER, SET_PERIOD_FILTER } from './actions';
+import {
+  ADD_EVENT,
+  DELETE_EVENT,
+  IMPORT_EVENTS,
+  SET_MARKET_FILTER,
+  SET_PERIOD_FILTER,
+  OPEN_ADD_EVENT_MODAL,
+  CLOSE_ADD_EVENT_MODAL,
+} from './actions';
 
 function events(state = [], action) {
   switch (action.type) {
@@ -45,10 +53,26 @@ function period(state = 'ALL', action) {
   }
 }
 
+function addEventModal(state = { visible: false }, action) {
+  switch (action.type) {
+  case 'OPEN_ADD_EVENT_MODAL':
+    return {
+      visible: true,
+    };
+  case 'CLOSE_ADD_EVENT_MODAL':
+    return {
+      visible: false,
+    };
+  default:
+    return state;
+  }
+}
+
 const rootReducer = combineReducers({
   events,
   market,
   period,
+  addEventModal,
 });
 
 export default rootReducer;

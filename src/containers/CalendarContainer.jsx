@@ -16,6 +16,7 @@ const propTypes = {
   market: PropTypes.string.isRequired,
   period: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
+  addEventModal: PropTypes.object.isRequired,
 };
 
 class CalendarContainer extends Component {
@@ -68,20 +69,24 @@ class CalendarContainer extends Component {
   }
 
   render() {
-    const { actions } = this.props;
+    const { actions, addEventModal } = this.props;
     return (
       <div>
         <div id="eventHeader">
           <h1 className="hidden-print">Marnie</h1>
           <div className="form-inline">
             <ImportEventsFileInput handleImport={actions.importEvents} />
-            <button className="btn btn-default hidden-print" data-toggle="modal" data-target="#addEventModal">
+            <button className="btn btn-default hidden-print" onClick={actions.openAddEventModal}>
               Add Event
             </button>
             <MarketFilter setMarketFilter={actions.setMarketFilter} />
             <PeriodFilter setPeriodFilter={actions.setPeriodFilter} />
           </div>
-          <AddEventModal classID="#addEventModal" handleAdd={actions.addEvent} />
+          <AddEventModal
+            handleAdd={actions.addEvent}
+            handleClose={actions.closeAddEventModal}
+            visible={addEventModal.visible}
+          />
         </div>
         { this.getFilteredEvents().length === 0 &&
           <EventsTable events={this.getFilteredEvents()} handleDelete={actions.deleteEvent} />
@@ -95,9 +100,9 @@ class CalendarContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { events, market, period } = state;
+  const { events, market, period, addEventModal } = state;
   return {
-    events, market, period,
+    events, market, period, addEventModal,
   };
 }
 

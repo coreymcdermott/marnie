@@ -4,6 +4,7 @@ import DatePicker from 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css'
 
 const propTypes = {
   handleAdd: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 class AddEventForm extends Component {
@@ -14,7 +15,7 @@ class AddEventForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const { handleAdd } = this.props;
+    const { handleAdd, handleClose } = this.props;
     handleAdd(
       document.getElementById('inputDate').value,
       document.getElementById('inputCountry').value,
@@ -24,57 +25,59 @@ class AddEventForm extends Component {
       document.getElementById('inputActual').value,
       document.getElementById('inputTime').value
     );
-    document.getElementById('addEventModal').modal('hide');
+    handleClose();
   }
 
   render() {
     return (
       <form className="form-horizontal" id="AddEventForm" onSubmit={this.onSubmit}>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Date</label>
+          <label className="col-sm-2 control-label" htmlFor="inputDate">Date</label>
           <div className="col-sm-10">
             <div className="input-group date" data-provide="datepicker">
-              <input type="text" className="form-control" id="inputDate" placeholder="" />
-                <div className="input-group-addon">
-                  <span className="glyphicon glyphicon-th" />
-                </div>
+              <input type="text" className="form-control" id="inputDate" />
+              <div className="input-group-addon">
+                <span className="glyphicon glyphicon-th" />
+              </div>
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Country</label>
+          <label className="col-sm-2 control-label" htmlFor="inputCountry">Country</label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputCountry" placeholder="" />
+            <input type="text" className="form-control" id="inputCountry" />
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Indicator</label>
+          <label className="col-sm-2 control-label" htmlFor="inputIndicator">
+            Indicator
+          </label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputIndicator" placeholder="" />
+            <input type="text" className="form-control" id="inputIndicator" />
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Period</label>
+          <label className="col-sm-2 control-label" htmlFor="inputPeriod">Period</label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputPeriod" placeholder="" />
+            <input type="text" className="form-control" id="inputPeriod" />
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Forcast</label>
+          <label className="col-sm-2 control-label" htmlFor="inputForecast">Forcast</label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputForecast" placeholder="" />
+            <input type="text" className="form-control" id="inputForecast" />
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Actual</label>
+          <label className="col-sm-2 control-label" htmlFor="inputActual">Actual</label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputActual" placeholder="" />
+            <input type="text" className="form-control" id="inputActual" />
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">Time</label>
+          <label className="col-sm-2 control-label" htmlFor="inputTime">Time</label>
           <div className="col-sm-10">
-            <input type="text" className="form-control" id="inputTime" placeholder="" />
+            <input type="text" className="form-control" id="inputTime" />
           </div>
         </div>
         <div className="clear-fix hack">
