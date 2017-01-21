@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import AddEventForm from '../components/AddEventForm.jsx';
+import CreateEventForm from '../components/CreateEventForm.jsx';
 
 const propTypes = {
   visible: PropTypes.bool.isRequired,
-  handleAdd: PropTypes.func.isRequired,
+  handleCreate: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
-class AddEventModal extends Component {
+class CreateEventModal extends Component {
   render() {
-    const { visible, handleAdd, handleClose } = this.props;
+    const { visible, handleCreate, handleClose } = this.props;
     return (
-      <div className={visible ? 'modal show' : 'modal fade'} id="addEventModal" role="dialog">
+      <div className={visible ? 'modal show' : 'modal fade'} role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -19,11 +19,11 @@ class AddEventModal extends Component {
                 <span aria-hidden="true">&times;</span>
               </button>
               <h4 className="modal-title">
-                Add Event
+                Create Event
               </h4>
             </div>
             <div className="modal-body">
-              <AddEventForm handleAdd={handleAdd} handleClose={handleClose} />
+              <CreateEventForm handleCreate={handleCreate} handleClose={handleClose} />
             </div>
           </div>
         </div>
@@ -32,6 +32,6 @@ class AddEventModal extends Component {
   }
 }
 
-AddEventModal.propTypes = propTypes;
+CreateEventModal.propTypes = propTypes;
 
-export default AddEventModal;
+export default CreateEventModal;

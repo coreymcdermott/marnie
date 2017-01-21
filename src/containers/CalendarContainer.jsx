@@ -5,7 +5,7 @@ import moment from 'moment';
 import * as actionCreators from '../actions';
 import { MARKETS } from '../actions';
 import ImportEventsFileInput from '../components/ImportEventsFileInput.jsx';
-import AddEventModal from '../components/AddEventModal.jsx';
+import CreateEventModal from '../components/CreateEventModal.jsx';
 import EventsTable from '../components/EventsTable.jsx';
 import MarketFilter from '../components/MarketFilter.jsx';
 import PeriodFilter from '../components/PeriodFilter.jsx';
@@ -16,7 +16,7 @@ const propTypes = {
   market: PropTypes.string.isRequired,
   period: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
-  addEventModal: PropTypes.object.isRequired,
+  createEventModal: PropTypes.object.isRequired,
 };
 
 class CalendarContainer extends Component {
@@ -69,23 +69,23 @@ class CalendarContainer extends Component {
   }
 
   render() {
-    const { actions, addEventModal } = this.props;
+    const { actions, createEventModal } = this.props;
     return (
       <div>
         <div id="eventHeader">
           <h1 className="hidden-print">Marnie</h1>
           <div className="form-inline">
             <ImportEventsFileInput handleImport={actions.importEvents} />
-            <button className="btn btn-default hidden-print" onClick={actions.openAddEventModal}>
-              Add Event
+            <button className="btn btn-default hidden-print" onClick={actions.openCreateEventModal}>
+              Create Event
             </button>
             <MarketFilter setMarketFilter={actions.setMarketFilter} />
             <PeriodFilter setPeriodFilter={actions.setPeriodFilter} />
           </div>
-          <AddEventModal
-            handleAdd={actions.addEvent}
-            handleClose={actions.closeAddEventModal}
-            visible={addEventModal.visible}
+          <CreateEventModal
+            handleCreate={actions.createEvent}
+            handleClose={actions.closeCreateEventModal}
+            visible={createEventModal.visible}
           />
         </div>
         { this.getFilteredEvents().length === 0 &&
@@ -100,9 +100,9 @@ class CalendarContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { events, market, period, addEventModal } = state;
+  const { events, market, period, createEventModal } = state;
   return {
-    events, market, period, addEventModal,
+    events, market, period, createEventModal,
   };
 }
 

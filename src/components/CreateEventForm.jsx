@@ -3,11 +3,11 @@ import datepicker from 'bootstrap-datepicker';
 import DatePicker from 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
 
 const propTypes = {
-  handleAdd: PropTypes.func.isRequired,
+  handleCreate: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
-class AddEventForm extends Component {
+class CreateEventForm extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
@@ -15,8 +15,8 @@ class AddEventForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const { handleAdd, handleClose } = this.props;
-    handleAdd(
+    const { handleCreate, handleClose } = this.props;
+    handleCreate(
       document.getElementById('inputDate').value,
       document.getElementById('inputCountry').value,
       document.getElementById('inputIndicator').value,
@@ -30,7 +30,7 @@ class AddEventForm extends Component {
 
   render() {
     return (
-      <form className="form-horizontal" id="AddEventForm" onSubmit={this.onSubmit}>
+      <form className="form-horizontal" id="CreateEventForm" onSubmit={this.onSubmit}>
         <div className="form-group">
           <label className="col-sm-2 control-label" htmlFor="inputDate">Date</label>
           <div className="col-sm-10">
@@ -81,13 +81,13 @@ class AddEventForm extends Component {
           </div>
         </div>
         <div className="clear-fix hack">
-          <button type="submit" className="btn btn-default pull-right">Add Event</button>
+          <button type="submit" className="btn btn-default pull-right">Create Event</button>
         </div>
       </form>
     );
   }
 }
 
-AddEventForm.propTypes = propTypes;
+CreateEventForm.propTypes = propTypes;
 
-export default AddEventForm;
+export default CreateEventForm;

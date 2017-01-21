@@ -1,13 +1,13 @@
 import XLSX from 'xlsx';
 import uuid from 'uuid';
 
-export const ADD_EVENT             = 'ADD_EVENT';
-export const DELETE_EVENT          = 'DELETE_EVENT';
-export const IMPORT_EVENTS         = 'IMPORT_EVENTS';
-export const SET_MARKET_FILTER     = 'SET_MARKET_FILTER';
-export const SET_PERIOD_FILTER     = 'SET_PERIOD_FILTER';
-export const OPEN_ADD_EVENT_MODAL  = 'OPEN_ADD_EVENT_MODAL';
-export const CLOSE_ADD_EVENT_MODAL = 'CLOSE_ADD_EVENT_MODAL';
+export const CREATE_EVENT             = 'CREATE_EVENT';
+export const DELETE_EVENT             = 'DELETE_EVENT';
+export const IMPORT_EVENTS            = 'IMPORT_EVENTS';
+export const SET_MARKET_FILTER        = 'SET_MARKET_FILTER';
+export const SET_PERIOD_FILTER        = 'SET_PERIOD_FILTER';
+export const OPEN_CREATE_EVENT_MODAL  = 'OPEN_CREATE_EVENT_MODAL';
+export const CLOSE_CREATE_EVENT_MODAL = 'CLOSE_CREATE_EVENT_MODAL';
 
 export const MARKETS = {
   G3_PLUS_C: [
@@ -97,7 +97,7 @@ export const MARKETS = {
   ],
 };
 
-export function addEvent(
+export function createEvent(
   date,
   country,
   indicator,
@@ -107,7 +107,7 @@ export function addEvent(
   time
 ) {
   return {
-    type:      ADD_EVENT,
+    type:      CREATE_EVENT,
     date:      date,
     country:   country,
     indicator: indicator,
@@ -166,14 +166,14 @@ export function setPeriodFilter(filter) {
   };
 }
 
-export function openAddEventModal() {
+export function openCreateEventModal() {
   return {
-    type: OPEN_ADD_EVENT_MODAL,
+    type: OPEN_CREATE_EVENT_MODAL,
   };
 }
 
-export function closeAddEventModal() {
+export function closeCreateEventModal() {
   return {
-    type: CLOSE_ADD_EVENT_MODAL,
+    type: CLOSE_CREATE_EVENT_MODAL,
   };
 }

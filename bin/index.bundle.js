@@ -23822,7 +23822,7 @@
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case _actions.ADD_EVENT:
+	    case _actions.CREATE_EVENT:
 	      return [].concat(_toConsumableArray(state), [{
 	        uuid: _uuid2.default.v4(),
 	        date: action.date,
@@ -23868,16 +23868,16 @@
 	  }
 	}
 
-	function addEventModal() {
+	function createEventModal() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { visible: false };
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'OPEN_ADD_EVENT_MODAL':
+	    case _actions.OPEN_CREATE_EVENT_MODAL:
 	      return {
 	        visible: true
 	      };
-	    case 'CLOSE_ADD_EVENT_MODAL':
+	    case _actions.CLOSE_CREATE_EVENT_MODAL:
 	      return {
 	        visible: false
 	      };
@@ -23890,7 +23890,7 @@
 	  events: events,
 	  market: market,
 	  period: period,
-	  addEventModal: addEventModal
+	  createEventModal: createEventModal
 	});
 
 	exports.default = rootReducer;
@@ -24131,14 +24131,14 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.MARKETS = exports.CLOSE_ADD_EVENT_MODAL = exports.OPEN_ADD_EVENT_MODAL = exports.SET_PERIOD_FILTER = exports.SET_MARKET_FILTER = exports.IMPORT_EVENTS = exports.DELETE_EVENT = exports.ADD_EVENT = undefined;
-	exports.addEvent = addEvent;
+	exports.MARKETS = exports.CLOSE_CREATE_EVENT_MODAL = exports.OPEN_CREATE_EVENT_MODAL = exports.SET_PERIOD_FILTER = exports.SET_MARKET_FILTER = exports.IMPORT_EVENTS = exports.DELETE_EVENT = exports.CREATE_EVENT = undefined;
+	exports.createEvent = createEvent;
 	exports.deleteEvent = deleteEvent;
 	exports.importEvents = importEvents;
 	exports.setMarketFilter = setMarketFilter;
 	exports.setPeriodFilter = setPeriodFilter;
-	exports.openAddEventModal = openAddEventModal;
-	exports.closeAddEventModal = closeAddEventModal;
+	exports.openCreateEventModal = openCreateEventModal;
+	exports.closeCreateEventModal = closeCreateEventModal;
 
 	var _xlsx = __webpack_require__(207);
 
@@ -24150,13 +24150,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ADD_EVENT = exports.ADD_EVENT = 'ADD_EVENT';
+	var CREATE_EVENT = exports.CREATE_EVENT = 'CREATE_EVENT';
 	var DELETE_EVENT = exports.DELETE_EVENT = 'DELETE_EVENT';
 	var IMPORT_EVENTS = exports.IMPORT_EVENTS = 'IMPORT_EVENTS';
 	var SET_MARKET_FILTER = exports.SET_MARKET_FILTER = 'SET_MARKET_FILTER';
 	var SET_PERIOD_FILTER = exports.SET_PERIOD_FILTER = 'SET_PERIOD_FILTER';
-	var OPEN_ADD_EVENT_MODAL = exports.OPEN_ADD_EVENT_MODAL = 'OPEN_ADD_EVENT_MODAL';
-	var CLOSE_ADD_EVENT_MODAL = exports.CLOSE_ADD_EVENT_MODAL = 'CLOSE_ADD_EVENT_MODAL';
+	var OPEN_CREATE_EVENT_MODAL = exports.OPEN_CREATE_EVENT_MODAL = 'OPEN_CREATE_EVENT_MODAL';
+	var CLOSE_CREATE_EVENT_MODAL = exports.CLOSE_CREATE_EVENT_MODAL = 'CLOSE_CREATE_EVENT_MODAL';
 
 	var MARKETS = exports.MARKETS = {
 	  G3_PLUS_C: ['United States', 'United Kingdom', 'China'],
@@ -24165,9 +24165,9 @@
 	  ALL_EAST_ASIA: ['American Samoa', 'Australia', 'Brunei Darussalam', 'Cambodia', 'China', 'Fiji', 'French Polynesia', 'Guam', 'Hong Kong', 'Indonesia', 'Japan', 'Kiribati', 'South Korea', 'Lao', 'Macao', 'Malaysia', 'Marshall Islands', 'Micronesia', 'Mongolia', 'Myanmar', 'Nauru', 'New Caledonia', 'New Zealand', 'Northern Mariana Islands', 'Palau', 'Papua New Guinea', 'Philippines', 'Samoa', 'Singapore', 'Solomon Islands', 'Taiwan, China', 'Thailand', 'Timor-Leste', 'Tonga', 'Tuvalu', 'Vanuatu', 'Vietnam']
 	};
 
-	function addEvent(date, country, indicator, period, forecast, actual, time) {
+	function createEvent(date, country, indicator, period, forecast, actual, time) {
 	  return {
-	    type: ADD_EVENT,
+	    type: CREATE_EVENT,
 	    date: date,
 	    country: country,
 	    indicator: indicator,
@@ -24228,15 +24228,15 @@
 	  };
 	}
 
-	function openAddEventModal() {
+	function openCreateEventModal() {
 	  return {
-	    type: OPEN_ADD_EVENT_MODAL
+	    type: OPEN_CREATE_EVENT_MODAL
 	  };
 	}
 
-	function closeAddEventModal() {
+	function closeCreateEventModal() {
 	  return {
-	    type: CLOSE_ADD_EVENT_MODAL
+	    type: CLOSE_CREATE_EVENT_MODAL
 	  };
 	}
 
@@ -63919,9 +63919,9 @@
 
 	var _ImportEventsFileInput2 = _interopRequireDefault(_ImportEventsFileInput);
 
-	var _AddEventModal = __webpack_require__(415);
+	var _CreateEventModal = __webpack_require__(415);
 
-	var _AddEventModal2 = _interopRequireDefault(_AddEventModal);
+	var _CreateEventModal2 = _interopRequireDefault(_CreateEventModal);
 
 	var _EventsTable = __webpack_require__(423);
 
@@ -63950,7 +63950,7 @@
 	  market: _react.PropTypes.string.isRequired,
 	  period: _react.PropTypes.string.isRequired,
 	  actions: _react.PropTypes.object.isRequired,
-	  addEventModal: _react.PropTypes.object.isRequired
+	  createEventModal: _react.PropTypes.object.isRequired
 	};
 
 	var CalendarContainer = function (_Component) {
@@ -64029,7 +64029,7 @@
 	    value: function render() {
 	      var _props2 = this.props,
 	          actions = _props2.actions,
-	          addEventModal = _props2.addEventModal;
+	          createEventModal = _props2.createEventModal;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -64048,16 +64048,16 @@
 	            _react2.default.createElement(_ImportEventsFileInput2.default, { handleImport: actions.importEvents }),
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'btn btn-default hidden-print', onClick: actions.openAddEventModal },
-	              'Add Event'
+	              { className: 'btn btn-default hidden-print', onClick: actions.openCreateEventModal },
+	              'Create Event'
 	            ),
 	            _react2.default.createElement(_MarketFilter2.default, { setMarketFilter: actions.setMarketFilter }),
 	            _react2.default.createElement(_PeriodFilter2.default, { setPeriodFilter: actions.setPeriodFilter })
 	          ),
-	          _react2.default.createElement(_AddEventModal2.default, {
-	            handleAdd: actions.addEvent,
-	            handleClose: actions.closeAddEventModal,
-	            visible: addEventModal.visible
+	          _react2.default.createElement(_CreateEventModal2.default, {
+	            handleCreate: actions.createEvent,
+	            handleClose: actions.closeCreateEventModal,
+	            visible: createEventModal.visible
 	          })
 	        ),
 	        this.getFilteredEvents().length === 0 && _react2.default.createElement(_EventsTable2.default, { events: this.getFilteredEvents(), handleDelete: actions.deleteEvent }),
@@ -64073,10 +64073,10 @@
 	  var events = state.events,
 	      market = state.market,
 	      period = state.period,
-	      addEventModal = state.addEventModal;
+	      createEventModal = state.createEventModal;
 
 	  return {
-	    events: events, market: market, period: period, addEventModal: addEventModal
+	    events: events, market: market, period: period, createEventModal: createEventModal
 	  };
 	}
 
@@ -78223,9 +78223,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _AddEventForm = __webpack_require__(416);
+	var _CreateEventForm = __webpack_require__(416);
 
-	var _AddEventForm2 = _interopRequireDefault(_AddEventForm);
+	var _CreateEventForm2 = _interopRequireDefault(_CreateEventForm);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78237,30 +78237,30 @@
 
 	var propTypes = {
 	  visible: _react.PropTypes.bool.isRequired,
-	  handleAdd: _react.PropTypes.func.isRequired,
+	  handleCreate: _react.PropTypes.func.isRequired,
 	  handleClose: _react.PropTypes.func.isRequired
 	};
 
-	var AddEventModal = function (_Component) {
-	  _inherits(AddEventModal, _Component);
+	var CreateEventModal = function (_Component) {
+	  _inherits(CreateEventModal, _Component);
 
-	  function AddEventModal() {
-	    _classCallCheck(this, AddEventModal);
+	  function CreateEventModal() {
+	    _classCallCheck(this, CreateEventModal);
 
-	    return _possibleConstructorReturn(this, (AddEventModal.__proto__ || Object.getPrototypeOf(AddEventModal)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (CreateEventModal.__proto__ || Object.getPrototypeOf(CreateEventModal)).apply(this, arguments));
 	  }
 
-	  _createClass(AddEventModal, [{
+	  _createClass(CreateEventModal, [{
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props,
 	          visible = _props.visible,
-	          handleAdd = _props.handleAdd,
+	          handleCreate = _props.handleCreate,
 	          handleClose = _props.handleClose;
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: visible ? 'modal show' : 'modal fade', id: 'addEventModal', role: 'dialog' },
+	        { className: visible ? 'modal show' : 'modal fade', role: 'dialog' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'modal-dialog', role: 'document' },
@@ -78282,13 +78282,13 @@
 	              _react2.default.createElement(
 	                'h4',
 	                { className: 'modal-title' },
-	                'Add Event'
+	                'Create Event'
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'modal-body' },
-	              _react2.default.createElement(_AddEventForm2.default, { handleAdd: handleAdd, handleClose: handleClose })
+	              _react2.default.createElement(_CreateEventForm2.default, { handleCreate: handleCreate, handleClose: handleClose })
 	            )
 	          )
 	        )
@@ -78296,12 +78296,12 @@
 	    }
 	  }]);
 
-	  return AddEventModal;
+	  return CreateEventModal;
 	}(_react.Component);
 
-	AddEventModal.propTypes = propTypes;
+	CreateEventModal.propTypes = propTypes;
 
-	exports.default = AddEventModal;
+	exports.default = CreateEventModal;
 
 /***/ },
 /* 416 */
@@ -78336,31 +78336,31 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var propTypes = {
-	  handleAdd: _react.PropTypes.func.isRequired,
+	  handleCreate: _react.PropTypes.func.isRequired,
 	  handleClose: _react.PropTypes.func.isRequired
 	};
 
-	var AddEventForm = function (_Component) {
-	  _inherits(AddEventForm, _Component);
+	var CreateEventForm = function (_Component) {
+	  _inherits(CreateEventForm, _Component);
 
-	  function AddEventForm(props) {
-	    _classCallCheck(this, AddEventForm);
+	  function CreateEventForm(props) {
+	    _classCallCheck(this, CreateEventForm);
 
-	    var _this = _possibleConstructorReturn(this, (AddEventForm.__proto__ || Object.getPrototypeOf(AddEventForm)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (CreateEventForm.__proto__ || Object.getPrototypeOf(CreateEventForm)).call(this, props));
 
 	    _this.onSubmit = _this.onSubmit.bind(_this);
 	    return _this;
 	  }
 
-	  _createClass(AddEventForm, [{
+	  _createClass(CreateEventForm, [{
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
 	      e.preventDefault();
 	      var _props = this.props,
-	          handleAdd = _props.handleAdd,
+	          handleCreate = _props.handleCreate,
 	          handleClose = _props.handleClose;
 
-	      handleAdd(document.getElementById('inputDate').value, document.getElementById('inputCountry').value, document.getElementById('inputIndicator').value, document.getElementById('inputPeriod').value, document.getElementById('inputForecast').value, document.getElementById('inputActual').value, document.getElementById('inputTime').value);
+	      handleCreate(document.getElementById('inputDate').value, document.getElementById('inputCountry').value, document.getElementById('inputIndicator').value, document.getElementById('inputPeriod').value, document.getElementById('inputForecast').value, document.getElementById('inputActual').value, document.getElementById('inputTime').value);
 	      handleClose();
 	    }
 	  }, {
@@ -78368,7 +78368,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'form',
-	        { className: 'form-horizontal', id: 'AddEventForm', onSubmit: this.onSubmit },
+	        { className: 'form-horizontal', id: 'CreateEventForm', onSubmit: this.onSubmit },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'form-group' },
@@ -78482,19 +78482,19 @@
 	          _react2.default.createElement(
 	            'button',
 	            { type: 'submit', className: 'btn btn-default pull-right' },
-	            'Add Event'
+	            'Create Event'
 	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return AddEventForm;
+	  return CreateEventForm;
 	}(_react.Component);
 
-	AddEventForm.propTypes = propTypes;
+	CreateEventForm.propTypes = propTypes;
 
-	exports.default = AddEventForm;
+	exports.default = CreateEventForm;
 
 /***/ },
 /* 417 */
