@@ -89,7 +89,7 @@ class CalendarContainer extends Component {
           />
         </div>
         { this.getFilteredEvents().length === 0 &&
-          <EventsTable events={this.getFilteredEvents()} handleDelete={actions.deleteEvent} />
+          <div className="well" id="emptyEventTable">Import events...</div>
         }
         { this.getFilteredEvents().length > 0 &&
           <EventsTable events={this.getFilteredEvents()} handleDelete={actions.deleteEvent} />

@@ -3,6 +3,10 @@
   margin-bottom: 1.5rem !important;
 }
 
+#emptyEventTable {
+  text-align: center;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
