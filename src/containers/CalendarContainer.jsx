@@ -98,7 +98,7 @@ class CalendarContainer extends Component {
           />
         </div>
         { this.getFilteredEvents().length === 0 &&
-          <div className="well" id="emptyEventTable">Import events...</div>
+          <div className="well" id="noEventsPlaceholder">No Events.</div>
         }
         { this.getFilteredEvents().length > 0 &&
           <EventsTable
