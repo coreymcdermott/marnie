@@ -6,6 +6,7 @@ import * as actionCreators from '../actions';
 import { MARKETS } from '../actions';
 import ImportEventsFileInput from '../components/ImportEventsFileInput.jsx';
 import CreateEventModal from '../components/CreateEventModal.jsx';
+import UpdateEventModal from '../components/UpdateEventModal.jsx';
 import EventsTable from '../components/EventsTable.jsx';
 import MarketFilter from '../components/MarketFilter.jsx';
 import PeriodFilter from '../components/PeriodFilter.jsx';
@@ -17,6 +18,8 @@ const propTypes = {
   period: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
   createEventModal: PropTypes.object.isRequired,
+  updateEventModal: PropTypes.object.isRequired,
+
 };
 
 class CalendarContainer extends Component {
@@ -69,7 +72,7 @@ class CalendarContainer extends Component {
   }
 
   render() {
-    const { actions, createEventModal } = this.props;
+    const { actions, createEventModal, updateEventModal } = this.props;
     return (
       <div>
         <div id="eventHeader">
@@ -87,12 +90,22 @@ class CalendarContainer extends Component {
             handleClose={actions.closeCreateEventModal}
             visible={createEventModal.visible}
           />
+          <UpdateEventModal
+            handleUpdate={actions.updateEvent}
+            handleClose={actions.closeUpdateEventModal}
+            visible={updateEventModal.visible}
+            event={updateEventModal.event}
+          />
         </div>
         { this.getFilteredEvents().length === 0 &&
           <div className="well" id="emptyEventTable">Import events...</div>
         }
         { this.getFilteredEvents().length > 0 &&
-          <EventsTable events={this.getFilteredEvents()} handleDelete={actions.deleteEvent} />
+          <EventsTable
+            events={this.getFilteredEvents()}
+            handleDelete={actions.deleteEvent}
+            handleUpdate={actions.openUpdateEventModal}
+          />
         }
       </div>
     );
@@ -100,9 +113,9 @@ class CalendarContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { events, market, period, createEventModal } = state;
+  const { events, market, period, createEventModal, updateEventModal } = state;
   return {
-    events, market, period, createEventModal,
+    events, market, period, createEventModal, updateEventModal,
   };
 }
 

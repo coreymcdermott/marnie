@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const propTypes = {
   events: PropTypes.array.isRequired,
-  handleEdit: PropTypes.func.isRequired,
+  handleUpdate: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
 
@@ -15,7 +15,7 @@ class EventsTable extends Component {
       const events = this.props.events.filter(event => event.date === date);
 
       return events.map((event, index) => {
-        const first = index === 0 ? (<td rowSpan={events.length} className="td-hack">{ moment(event.date).format('dddd, Do MMMM') }</td>) : false;
+        const first = index === 0 ? (<td rowSpan={events.length} className="td-hack">{ moment(event.date, 'MM-DD-YY').format('dddd, Do MMMM') }</td>) : false;
 
         return (
           <tr key={event.UUID}>
@@ -27,8 +27,18 @@ class EventsTable extends Component {
             <td>{event.actual}</td>
             <td>{event.time}</td>
             <td className="hidden-print">
-              <button className="btn btn-default m-right" onClick={() => this.props.handleEdit(event.uuid)}>Edit</button>
-              <button className="btn btn-default" onClick={() => this.props.handleDelete(event.uuid)}>Delete</button>
+              <button
+                className="btn btn-default m-right"
+                onClick={() => this.props.handleUpdate(event)}
+              >
+                Update
+              </button>
+              <button
+                className="btn btn-default"
+                onClick={() => this.props.handleDelete(event.uuid)}
+              >
+                Delete
+              </button>
             </td>
           </tr>
         );
