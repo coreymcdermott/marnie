@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as form } from 'redux-form';
 import uuid from 'uuid';
 import {
   CREATE_EVENT,
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
   market,
   period,
   createEventModal,
+  form,
 });
 
 export default rootReducer;
