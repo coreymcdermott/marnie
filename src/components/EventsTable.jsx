@@ -9,10 +9,10 @@ const propTypes = {
 
 class EventsTable extends Component {
   render() {
-    const dates = [...new Set(this.props.events.map(event => event.date))];
+    const dates = [...new Set(this.props.events.map(event => event.date.getTime()))].sort();
 
     const rows = dates.map(date => {
-      const events = this.props.events.filter(event => event.date === date);
+      const events = this.props.events.filter(event => event.date.getTime() === date);
 
       return events.map((event, index) => {
         const first = index === 0 ? (<td rowSpan={events.length} className="td-hack">{ moment(event.date, 'DD/MM/YY').format('dddd, Do MMMM') }</td>) : false;
