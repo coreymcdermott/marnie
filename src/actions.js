@@ -1,5 +1,6 @@
 import XLSX from 'xlsx';
 import uuid from 'uuid';
+import moment from 'moment';
 
 export const CREATE_EVENT             = 'CREATE_EVENT';
 export const UPDATE_EVENT             = 'UPDATE_EVENT';
@@ -162,7 +163,7 @@ export function importEvents(data) {
   worksheet.map(event => {
     events.push({
       uuid:      uuid.v4(),
-      date:      event['Date'],
+      date:      moment(event['Date'], 'DD-MM-YYYY').toDate(),
       country:   event['Country'],
       indicator: event['Event'],
       period:    event['Period'],
