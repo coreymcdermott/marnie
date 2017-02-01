@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import datepicker from 'bootstrap-datepicker';
-import DatePicker from 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
+import 'react-widgets/lib/less/react-widgets.less';
+import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+
+
+momentLocalizer(Moment);
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
@@ -37,12 +42,19 @@ class UpdateEventForm extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label" htmlFor="date">Date</label>
           <div className="col-sm-10">
-            <div className="input-group date" data-provide="datepicker">
-              <Field className="form-control" name="date" component="input" type="text" />
-              <div className="input-group-addon">
-                <span className="glyphicon glyphicon-th" />
-              </div>
-            </div>
+            <Field
+              name="date"
+              className="form-control"
+              type="text"
+              component={({ input: { onChange, value } }) =>
+                <DateTimePicker
+                  onChange={onChange}
+                  format="DD/MM/YYYY"
+                  time={false}
+                  value={value && new Date(value) || null}
+                />
+              }
+            />
           </div>
         </div>
         <div className="form-group">

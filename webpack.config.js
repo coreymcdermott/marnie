@@ -20,6 +20,12 @@ module.exports = {
       test: /\.css$/,
       loader: 'style-loader!css-loader',
     }, {
+      test: /\.less$/,
+      loader: 'style-loader!css-loader!less-loader',
+    }, {
+      test: /\.gif$/,
+      loader: 'url-loader?mimetype=image/png',
+    }, {
       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?name=[name].[ext]limit=10000&mimetype=application/font-woff',
     }, {
